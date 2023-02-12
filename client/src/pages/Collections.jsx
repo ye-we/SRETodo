@@ -52,13 +52,13 @@ const Collections = () => {
       children: (
         <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
           {collections?.length > 0 &&
-            collections.map((collection) => (
+            collections.map((collection, i) => (
               <Link
                 key={collection.id}
                 to={`${collection.id}`}
                 className="mr-auto"
               >
-                <CollectionCard data={collection} />
+                <CollectionCard data={collection} i={i} />
               </Link>
             ))}
           <a

@@ -9,7 +9,7 @@ router.get("/api/createTodosTable", appControllers.createTodosTable);
 router.get("/api/getAllTodos", appControllers.getAllTodos);
 
 // Add a new collection
-router.get("/api/addNewCollection", appControllers.addNewCollection);
+router.post("/api/addNewCollection", appControllers.addNewCollection);
 
 // Get all collections
 router.get("/api/getAllCollections", appControllers.getAllCollections);

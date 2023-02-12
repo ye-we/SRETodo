@@ -5,8 +5,13 @@ import { useContext } from "react";
 import TodoContext from "../../context/todo-context";
 
 const TaskModal = ({ task }) => {
-  const { modalState, setModalState, tasksState, setTasksState } =
-    useContext(TodoContext);
+  const {
+    modalState,
+    setModalState,
+    tasksState,
+    setTasksState,
+    setCollections,
+  } = useContext(TodoContext);
   let { collections } = useContext(TodoContext);
   console.log(tasksState);
   const handleOk = () => {
@@ -93,6 +98,33 @@ const TaskModal = ({ task }) => {
       console.log("error deleting todo", err);
     }
   };
+
+  const addNewCollection = async (values) => {
+    try {
+      const res = await fetch(`/api/addNewCollection`, {
+        method: "POST",
+        // mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+        }),
+      });
+      console.log(await res.json());
+      setCollections([
+        ...collections,
+        { name: values.name, id: collections[collections.length - 1].id + 1 },
+      ]);
+      setModalState(1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const addNewCollectionFailed = (err) => {
+    console.log("add new collection failed", err);
+  };
+
   return (
     <>
       {modalState === 2 && (
@@ -196,9 +228,6 @@ const TaskModal = ({ task }) => {
             open={modalState === 3}
             onOk={handleOk}
             onCancel={handleCancel}
-            style={{
-              background: "#21212D",
-            }}
             okButtonProps={{
               hidden: true,
             }}
@@ -214,15 +243,27 @@ const TaskModal = ({ task }) => {
               className="w-[80%]"
             >
               <Form.Item name="newtitle">
-                <Input defaultValue={task.title} placeholder="Task title..." />
+                <Input
+                  defaultValue={task.title}
+                  placeholder="Task title..."
+                  className="bg-inherit placeholder:text-white border-gray-600 text-white"
+                />
               </Form.Item>
               <Form.Item name="completed" valuePropName="checked">
-                <Checkbox>Completed</Checkbox>
+                <Checkbox className="text-white">Completed</Checkbox>
               </Form.Item>
               <Form.Item>
-                <Button htmlType="submit">Update Task</Button>
                 <Button
-                  className="ml-5"
+                  htmlType="submit"
+                  style={{
+                    border: "none",
+                  }}
+                  className="text-white bg-gradient-to-bl from-pink to-purple-500 rounded-md "
+                >
+                  Update Task
+                </Button>
+                <Button
+                  className="ml-5 text-white"
                   onClick={() => {
                     setModalState(1);
                   }}
@@ -243,17 +284,16 @@ const TaskModal = ({ task }) => {
             onCancel={handleCancel}
             okText="Yes"
             cancelText="No"
-            style={{
-              background: "#21212D",
-            }}
             okButtonProps={{
               className: "text-white border-solid bg-red-700 hover:bg-red-500",
             }}
             cancelButtonProps={{
-              className: "text-black",
+              className: "text-white",
             }}
           >
-            <h1>Are you sure you want to delete this todo?</h1>
+            <h1 className="text-white">
+              Are you sure you want to delete this todo?
+            </h1>
           </Modal>
         </div>
       )}
@@ -267,16 +307,48 @@ const TaskModal = ({ task }) => {
             okText="Yes"
             cancelText="No"
             okButtonProps={{
-              className: "text-white border-solid bg-red-700 hover:bg-red-500",
+              hidden: true,
+            }}
+            cancelButtonProps={{
+              hidden: true,
             }}
             bodyStyle={{
               color: "white",
             }}
-            cancelButtonProps={{
-              className: "text-white",
-            }}
           >
-            <h1>Are you sure you want to delete this todo?</h1>
+            <Form
+              name="basic"
+              onFinish={addNewCollection}
+              onFinishFailed={addNewCollectionFailed}
+              autoComplete="off"
+              className="md:w-[80%]"
+            >
+              <Form.Item name="name">
+                <Input
+                  placeholder="Collection name..."
+                  className="bg-inherit placeholder:text-white border-gray-600 text-white"
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  htmlType="submit"
+                  style={{
+                    border: "none",
+                  }}
+                  className="text-white md:text-lg text-sm bg-gradient-to-bl from-pink to-purple-500 rounded-md "
+                >
+                  Add New Collection
+                </Button>
+                <Button
+                  className="ml-5 text-white"
+                  onClick={() => {
+                    setModalState(1);
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Form.Item>
+            </Form>{" "}
           </Modal>
         </div>
       )}
