@@ -28,18 +28,21 @@ const TaskModal = ({ task }) => {
     const date = new Date(values.date.$d).toISOString().split("T")[0];
     console.log(date);
     try {
-      const res = await fetch(`/api/addNewTodo`, {
-        method: "POST",
-        // mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: values.title,
-          collection: values.collection,
-          date: date,
-        }),
-      });
+      const res = await fetch(
+        `https://todo-dashobard.onrender.com/api/addNewTodo`,
+        {
+          method: "POST",
+          // mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: values.title,
+            collection: values.collection,
+            date: date,
+          }),
+        }
+      );
       const response = await res.json();
       console.log(response);
       setModalState(1);
@@ -58,17 +61,20 @@ const TaskModal = ({ task }) => {
     const newTitle = values.newtitle || task.title;
     const completed = values.completed || false;
     try {
-      const res = await fetch(`/api/updateTodo/${task.id}`, {
-        method: "POST",
-        // mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newTitle,
-          completed,
-        }),
-      });
+      const res = await fetch(
+        `https://todo-dashobard.onrender.com/api/updateTodo/${task.id}`,
+        {
+          method: "POST",
+          // mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            newTitle,
+            completed,
+          }),
+        }
+      );
       const response = await res.json();
       console.log(response);
       setTasksState(!tasksState);
@@ -84,13 +90,16 @@ const TaskModal = ({ task }) => {
   const handleDeleteTask = async () => {
     console.log(task.id);
     try {
-      const res = await fetch(`/api/deleteTodo/${task.id}`, {
-        method: "POST",
-        // mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `https://todo-dashobard.onrender.com/api/deleteTodo/${task.id}`,
+        {
+          method: "POST",
+          // mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log(await res.json());
       setTasksState(!tasksState);
       setModalState(1);
@@ -101,16 +110,19 @@ const TaskModal = ({ task }) => {
 
   const addNewCollection = async (values) => {
     try {
-      const res = await fetch(`/api/addNewCollection`, {
-        method: "POST",
-        // mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: values.name,
-        }),
-      });
+      const res = await fetch(
+        `https://todo-dashobard.onrender.com/api/addNewCollection`,
+        {
+          method: "POST",
+          // mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: values.name,
+          }),
+        }
+      );
       console.log(await res.json());
       setCollections([
         ...collections,

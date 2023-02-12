@@ -29,12 +29,15 @@ const CollectionCard = ({ data, i }) => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const res = await fetch(`/api/getFinishedCount/${data.id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          `https://todo-dashobard.onrender.com/api/getFinishedCount/${data.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const response = await res.json();
         setTodosCount(response[0][0]["COUNT (*)"]);
         setFinishedCount(response[1][0]["COUNT (id)"]);

@@ -44,13 +44,16 @@ const Tasks = () => {
     console.log("here");
     const fetchTodos = async () => {
       try {
-        const res = await fetch(`/api/getTodosFromCollection/${collectionId}`, {
-          method: "GET",
-          // mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          `https://todo-dashobard.onrender.com/api/getTodosFromCollection/${collectionId}`,
+          {
+            method: "GET",
+            // mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         setIncompleteTasks(data.filter((d) => d.completed === 0));
         setCompletedTasks(data.filter((d) => d.completed === 1));

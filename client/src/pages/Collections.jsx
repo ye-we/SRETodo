@@ -23,13 +23,16 @@ const Collections = () => {
   useEffect(() => {
     const fetchCurrentCollection = async () => {
       try {
-        const res = await fetch(`/api/getAllCollections`, {
-          method: "GET",
-          // mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          `https://todo-dashobard.onrender.com/api/getAllCollections`,
+          {
+            method: "GET",
+            // mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         console.log(data);
         setCollections(data);
