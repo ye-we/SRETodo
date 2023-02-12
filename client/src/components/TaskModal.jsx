@@ -88,7 +88,7 @@ const TaskModal = ({ task }) => {
   };
 
   const handleDeleteTask = async () => {
-    console.log(task.id);
+    console.log(task);
     try {
       const res = await fetch(
         `https://todo-dashobard.onrender.com/api/deleteTodo/${task.id}`,
@@ -170,7 +170,7 @@ const TaskModal = ({ task }) => {
             >
               <Input
                 placeholder="Task title..."
-                className="bg-inherit placeholder:text-white border-gray-600"
+                className="bg-inherit placeholder:text-white border-gray-600 text-white"
               />
             </Form.Item>
             <Form.Item
@@ -200,7 +200,7 @@ const TaskModal = ({ task }) => {
             <Form.Item name="date">
               <DatePicker
                 format="YYYY-MM-DD"
-                className="bg-inherit placeholder:text-white border-gray-600"
+                className="bg-inherit placeholder:text-white border-gray-600 text-white"
                 style={{
                   color: "white",
                 }}

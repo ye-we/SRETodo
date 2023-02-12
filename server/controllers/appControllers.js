@@ -110,6 +110,7 @@ module.exports.getFinishedCount = (req, res) => {
   const q = `SELECT COUNT (*) FROM Todos WHERE collectionId=${req.params.id};SELECT COUNT (id) FROM Todos WHERE completed = 1 AND collectionId=${req.params.id}`;
   db.query(q, (err, data) => {
     if (err) return res.json(err);
+    console.log(data);
     return res.json(data);
   });
 };

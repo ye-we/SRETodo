@@ -108,6 +108,12 @@ const Tasks = () => {
             setSelectedTask(task);
             setModalState(3);
           }}
+          onPointerDown={(e) => {
+            setSelectedTask(task);
+            setModalState(3);
+            console.log("detail", e);
+            console.log("detail");
+          }}
           onMouseDownCapture={() => {
             console.log("here");
             setSelectedTask(task);
