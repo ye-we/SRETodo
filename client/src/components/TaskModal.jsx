@@ -101,9 +101,6 @@ const TaskModal = ({ task }) => {
           open={modalState === 2}
           onOk={handleOk}
           onCancel={handleCancel}
-          style={{
-            background: "#21212D",
-          }}
           okButtonProps={{
             hidden: true,
           }}
@@ -127,7 +124,10 @@ const TaskModal = ({ task }) => {
                 },
               ]}
             >
-              <Input placeholder="Task title..." />
+              <Input
+                placeholder="Task title..."
+                className="bg-inherit placeholder:text-white border-gray-600"
+              />
             </Form.Item>
             <Form.Item
               name="collection"
@@ -140,19 +140,43 @@ const TaskModal = ({ task }) => {
             >
               <Radio.Group onChange={onChange}>
                 {collections.map((collection) => (
-                  <Radio.Button key={collection.id} value={collection.id}>
+                  <Radio.Button
+                    key={collection.id}
+                    value={collection.id}
+                    style={{
+                      background: "transparent",
+                      color: "white",
+                    }}
+                  >
                     {collection.name}
                   </Radio.Button>
                 ))}
               </Radio.Group>
             </Form.Item>
             <Form.Item name="date">
-              <DatePicker format="YYYY-MM-DD" />
+              <DatePicker
+                format="YYYY-MM-DD"
+                className="bg-inherit placeholder:text-white border-gray-600"
+                style={{
+                  color: "white",
+                }}
+              />
             </Form.Item>
             <Form.Item>
-              <Button htmlType="submit">Add Task</Button>
               <Button
-                className="ml-5"
+                htmlType="submit"
+                style={{
+                  border: "none",
+                }}
+                className="text-white bg-gradient-to-bl from-pink to-purple-500 rounded-md "
+              >
+                Add Task
+              </Button>
+              <Button
+                className="ml-5 text-white bg-slate-700"
+                style={{
+                  border: "none",
+                }}
                 onClick={() => {
                   setModalState(1);
                 }}
@@ -227,6 +251,29 @@ const TaskModal = ({ task }) => {
             }}
             cancelButtonProps={{
               className: "text-black",
+            }}
+          >
+            <h1>Are you sure you want to delete this todo?</h1>
+          </Modal>
+        </div>
+      )}
+      {modalState === 5 && (
+        <div>
+          <Modal
+            title="Add A New Collection"
+            open={modalState === 5}
+            onOk={handleDeleteTask}
+            onCancel={handleCancel}
+            okText="Yes"
+            cancelText="No"
+            okButtonProps={{
+              className: "text-white border-solid bg-red-700 hover:bg-red-500",
+            }}
+            bodyStyle={{
+              color: "white",
+            }}
+            cancelButtonProps={{
+              className: "text-white",
             }}
           >
             <h1>Are you sure you want to delete this todo?</h1>

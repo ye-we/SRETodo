@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ant-modal-footer {
+  background-color: #21212d !important;
+  color: white;
+}
+.ant-modal-header {
+  background-color: #21212d !important;
+}
+.ant-modal-content {
+  background-color: #21212d !important;
+}
+.ant-modal-title {
+  color: white !important;
+}
+.ant-picker-input input::placeholder {
+  color: white !important;
+}
+.anticon-calendar {
+  color: white !important;
+}
